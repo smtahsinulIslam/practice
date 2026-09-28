@@ -1,0 +1,18 @@
+<div>
+
+  <div>
+    <h1>Posts</h1>
+  </div>
+
+  <div>
+  <% @posts.each do |post| %>
+    <p><%= post.title %></p>
+    <p><%= post.description %></p>
+    <p>Author: <%= post.user.name %></p>
+    <p><%= post.comments.count %> comments</p>
+    
+    <hr>
+  <% end %>  
+  </div>
+
+</div>
