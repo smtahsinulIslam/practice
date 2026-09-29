@@ -6,11 +6,13 @@
 
   <div>
   <% @posts.each do |post| %>
+    <%= link_to "X delete", post, method: :delete, confirm: "Are you sure?" %>
     <p><%= post.title %></p>
     <p><%= post.description %></p>
-    <p>Author: <%= post.user.name %></p>
     <p><%= post.comments.count %> comments</p>
-    
+    <%= link_to "View Post", post %>
+    <%= link_to "Edit Post", edit_post_path(post) %>
+
     <hr>
   <% end %>  
   </div>

@@ -1,0 +1,29 @@
+<h1>Add a Comment</h1>
+<h1><%= @post.title %></h1>
+<p><%= @post.description %></p>
+<%= form_with(model: [@post, @comment], local: true) do |form| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+      <ul>
+        <% @comment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :statement %><br>
+    <%= form.text_area :statement %>
+  </div>
+  div>
+    <%= form.label :user_id, "User" %><br>
+    <%= form.collection_select :user_id, User.all, :id, :name %>
+  </div>
+
+  <div>
+    <%= form.submit "Create Comment" %>
+  </div>
+<% end %>
+<%= link_to "Back to Post", @post %>
