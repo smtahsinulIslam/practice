@@ -2,9 +2,13 @@
 <p>Email: <%= @user.email %></p>
 <p>Number: <%= @user.number %></p>
 <p>Posts: <%= @user.posts.count %></p>
-<%= link_to "Edit User", edit_user_path(@user) %>
-<%= link_to "Back", posts_path %>
+<%= link_to "Edit User", edit_user_path(@user) %>|
+<%= link_to "Back", users_path %>|
+<%= link_to "Posts", posts_path %>
+<br><br>
+
 <% @user.posts.each do |post| %>
-  <p><%= link_to post.title, post %></p>
+  <li><%= link_to post.title, post %></li>
 <% end %>
+<br>
 <%= link_to "Delete User", @user, method: :delete, confirm: "Are you sure?" %>
