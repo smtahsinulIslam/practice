@@ -5,16 +5,17 @@
   </div>
 
   <div class="posts">
-  <% @posts.each do |post| %>
-    <%= button_to "X", post, method: :delete, 
-    data: { turbo_confirm: "Are you sure?" }, 
-    class: "btn-danger" %>    
+  <% @posts.each do |post| %>  
     <h2><%= post.title %></h2>
     <p><%= post.description %></p>
     <p><%= post.comments.count %> comments</p>
-    <%= link_to "View Post", post, class: "btn-blue" %>
-    <%= link_to "Edit Post", edit_post_path(post), class: "btn-green" %>
-
+    <div class="comment-actions">
+      <%= link_to "View Post", post, class: "btn-blue" %>
+      <%= link_to "Edit Post", edit_post_path(post), class: "btn-green" %>
+      <%= button_to "Delete", post, method: :delete, 
+      data: { turbo_confirm: "Are you sure?" }, 
+      class: "btn-danger" %>  
+    </div>
     <hr>
     <br>
   <% end %>  

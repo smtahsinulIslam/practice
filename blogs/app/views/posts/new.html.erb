@@ -3,6 +3,16 @@
   <h1>Create a new post</h1>
 
 <%= form_with model: @post, local: true do |form| %>
+  <% if @post.errors.any? %>
+    <div style="color: red;">
+      <h2><%= pluralize(@post.errors.count, "error")%></h2>
+      <ul>
+        <% @post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>  
+      </ul>
+    </div>
+  <% end %>
   <div>
     <%= form.label :title %><br>
     <%= form.text_field :title %>
@@ -21,5 +31,7 @@
 <br>
   <%= form.submit "Create Post" , class: "btn-green" %>
 <% end %>
+<br>
+<%= link_to "Back to Posts", posts_path, class: "btn-blue" %>
 <br>
 </div>
