@@ -1,15 +1,19 @@
-<div>
+<div class="">
   <h1>Users</h1>
-  <div>
+  <div class="users">
     <% @users.each do |user| %>
-      <p><%= user.name %></p>
+      <h2><%= user.name %></h2>
       <p><%= user.email %></p>
       <p><%= user.number %></p>
-      <%= link_to "View User", user %> |
-      <%= link_to "Edit User", edit_user_path(user) %> |
-      <%= button_to "Delete User", user, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      <%= link_to "View User", user, class: "btn-blue" %> 
+      <%= link_to "Edit User", edit_user_path(user), class: "btn-green" %> 
+      <br> <br>
+      <%= link_to "Delete User", user, class: "btn-danger", 
+      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
       <hr>
     <% end %>
   </div>
-  <%= link_to "New User", new_user_path %>
+  <br>
+  <%= link_to "New User", new_user_path, class: "btn-blue", style: "margin-left: 10px;" %>
+  <br><br>
 </div>

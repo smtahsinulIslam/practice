@@ -4,18 +4,21 @@
     <h1>Posts</h1>
   </div>
 
-  <div>
+  <div class="posts">
   <% @posts.each do |post| %>
-    <%= button_to "X", post, method: :delete, data: { turbo_confirm: "Are you sure?" } %>    
-    <p><%= post.title %></p>
+    <%= button_to "X", post, method: :delete, 
+    data: { turbo_confirm: "Are you sure?" }, 
+    class: "btn-danger" %>    
+    <h2><%= post.title %></h2>
     <p><%= post.description %></p>
     <p><%= post.comments.count %> comments</p>
-    <%= link_to "View Post", post %>
-    <%= link_to "Edit Post", edit_post_path(post) %>
+    <%= link_to "View Post", post, class: "btn-blue" %>
+    <%= link_to "Edit Post", edit_post_path(post), class: "btn-green" %>
 
     <hr>
+    <br>
   <% end %>  
   </div>
-  <%= link_to "New Post", new_post_path %>
-
+  <%= link_to "New Post", new_post_path, class: "btn-blue", style: "margin-left: 10px;" %>
+  <br><br>
 </div>

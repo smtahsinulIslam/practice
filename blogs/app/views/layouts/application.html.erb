@@ -8,7 +8,6 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= render "layouts/header" %>
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
@@ -24,6 +23,9 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <%= render "layouts/header" %>
+      <%= yield %>
+    </div>
   </body>
 </html>

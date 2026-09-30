@@ -1,14 +1,27 @@
-<h1><%= @user.name %></h1>
-<p>Email: <%= @user.email %></p>
-<p>Number: <%= @user.number %></p>
-<p>Posts: <%= @user.posts.count %></p>
-<%= link_to "Edit User", edit_user_path(@user) %>|
-<%= link_to "Back", users_path %>|
-<%= link_to "Posts", posts_path %>
-<br><br>
+<div class= "main_div">
+  <h1>User Details</h1>
+  <div class="user">
+    <h2>Name: <%= @user.name %></h2>
+    <p>Email: <%= @user.email %></p>
+    <p>Number: <%= @user.number %></p>
+    <p>Posts Count: <%= @user.posts.count %></p>
+    <%= link_to "Edit User", edit_user_path(@user), class: "btn-green" %> 
+    <%= link_to "Back to Users", users_path, class: "btn-blue" %> 
+    <%= link_to "View Posts", posts_path, class: "btn-blue" %> 
+    <br><br>
+    
+    <% if @user.posts.any? %>
+      <h2>User's Posts</h2>
+      <% @user.posts.each do |post| %>
+        <h3><%= link_to post.title, post %></h3>
+      <% end %>
+    <% else %>
+      <p>This user has no posts.</p>
+    <% end %>
 
-<% @user.posts.each do |post| %>
-  <li><%= link_to post.title, post %></li>
-<% end %>
-<br>
-<%= link_to "Delete User", @user, method: :delete, confirm: "Are you sure?" %>
+    <br>
+    <%= button_to "Delete User", @user, method: :delete, class: "btn-danger", 
+        data: { turbo_confirm: "Are you sure?" } %>
+  </div>
+</div>
+  

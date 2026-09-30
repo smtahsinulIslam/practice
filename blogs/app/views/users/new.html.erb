@@ -1,22 +1,29 @@
+<div class="">
 <h1>Create User</h1>
 <%= form_with model: @user, local: true do |form| %>
   <div>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
   </div>
+<br>
 
   <div>
     <%= form.label :email %><br>
     <%= form.email_field :email %>
   </div>
+<br>
 
   <div>
     <%= form.label :number %><br>
     <%= form.telephone_field :number %>
   </div>
+<br>
 
   <div>
-    <%= form.submit "Create User" %>
+    <%= form.submit "Create User", class: "btn-green" %>
   </div>
 <% end %>
-<%= link_to "Back to Users", users_path %>
+<br>
+<%= link_to "Back to Users", users_path, class: "btn-blue" %>
+<br>
+</div>

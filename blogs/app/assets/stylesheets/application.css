@@ -1,10 +1,135 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+body {
+    background-color: lightgray;
+}
+
+a {
+    color: rgb(46, 46, 238);
+    text-decoration: none;
+}
+
+nav a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(25, 25, 99);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+.header {
+    background-color: rgb(43, 42, 42);
+}
+
+ul {
+
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+
+}
+
+li {
+    margin-right: 10px;
+    list-style-type: none;
+}
+
+li:hover {
+    background-color: lightgray;
+}
+
+.main_div {
+    background-color: darkgray;
+    border-radius: 5px;
+    border: 1px solid gray;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.users, .posts {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.post,.user {
+    background-color: darkgray;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.comment {
+    background-color: rgb(134, 167, 179);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.comment-form-container {
+    margin-top: 10px;
+    
+}
+
+.btn-danger{
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.btn-danger:hover{
+    background-color: rgb(150, 0, 0);
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-green{
+    background-color: rgb(46, 150, 100);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.btn-green:hover{
+    background-color: rgb(0, 100, 50);
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-blue{
+    background-color: rgb(50, 100, 230);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.btn-blue:hover{
+    background-color: rgb(0, 50, 150);
+    color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.comment-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.comment-actions form {
+    display: inline;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+}

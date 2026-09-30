@@ -1,17 +1,36 @@
-<h1>Edit Comment</h1>
-<div>
-<%= form_with model: [@post, @comment], local: true do |form| %>
-  <div>
-    <%= form.label :statement %><br>
-    <%= form.text_area :statement %>
-  </div>
-  <div>
-    <%= form.label :user_id, "User" %><br>
-    <%= form.collection_select :user_id, User.all, :id, :name %>
-  </div>
-  <div>
-    <%= form.submit "Update Comment" %>
-  </div>
-<% end %>
-<%= link_to "Back to Post", @post %>
-</div>    
+   
+<div class="comment-form">  
+  <h1>Edit Comment</h1>
+  <div class="comment-form-container">
+    <h1><%= @post.title %></h1>
+    <p><%= @post.description %></p>
+    <%= form_with(model: [@post, @comment], local: true) do |form| %>
+      <% if @comment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+          <ul>
+            <% @comment.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div>
+        <%= form.label :statement %><br>
+        <%= form.text_area :statement %>
+      </div>
+      <div>
+        <%= form.label :user_id, "User" %><br>
+        <%= form.collection_select :user_id, User.all, :id, :name %>
+      </div>
+<br>
+      <div>
+        <%= form.submit "Update Comment", class: "btn-green" %>
+      </div>
+    <% end %>
+    <br>
+    <%= link_to "Back to Post", @post , class: "btn-blue" %>
+  </div>  
+  <br>
+</div>

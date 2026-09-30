@@ -1,4 +1,10 @@
-<ul>
-  <li><%= link_to "Users", users_path %></li>
-  <li><%= link_to "Posts", posts_path %></li>
-</ul>
+<div class="header">
+  <nav class="nav">
+    <ul>
+      <li><%= link_to "My Blogs", root_path %></li>
+      <li><%= link_to "Add Posts", new_post_path %></li>
+      <li><%= link_to "Users", users_path %></li>
+      <li><%= link_to "Add User", new_user_path %></li>
+    </ul>
+  </nav>
+</div>
