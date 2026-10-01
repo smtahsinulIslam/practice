@@ -16,6 +16,9 @@
   <div>
     <%= form.label :title %><br>
     <%= form.text_field :title %>
+    <% @post.errors.each do |error| %>
+          <li style="color: red;"><%= error.full_message %></li>
+    <% end %>
   </div>
 <br>
    <div>

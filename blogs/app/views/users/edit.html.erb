@@ -1,34 +1,46 @@
 <div class="">
-<h1>Create User</h1>
+<h1>Edit User</h1>
 <%= form_with model: @user, local: true do |form| %>
   <% if @user.errors.any? %>
     <div style="color: red;">
-      <h2><%= pluralize(@user.errors.count, "error")%>Not Allowed</h2>
-      <ul>
-        <% @user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>  
-      </ul>
+      <h2><%= pluralize(@user.errors.count, "error ")%>Found!</h2>
     </div>
   <% end %>
 
   <div>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
+    <% if @user.errors[:name].any? %>
+      <% @user.errors.full_messages_for(:name).each do |message| %>
+        <p style="color: red;"><%= message %></p>
+      <% end %>
+  <% end %> 
   </div>
 <br>
 
   <div>
     <%= form.label :email %><br>
     <%= form.email_field :email %>
+    <% if @user.errors[:email].any? %>
+      <% @user.errors.full_messages_for(:email).each do |message| %>
+        <p style="color: red;"><%= message %></p>
+      <% end %>
+  <% end %>
   </div>
 <br>
 
   <div>
     <%= form.label :number %><br>
     <%= form.telephone_field :number %>
+    <% if @user.errors[:number].any? %>
+      <% @user.errors.full_messages_for(:number).each do |message| %>
+        <p style="color: red;"><%= message %></p>
+      <% end %>
+  <% end %>
   </div>
 <br>
+
+  
 
   <div>
     <%= form.submit "Update User", class: "btn-green" %>

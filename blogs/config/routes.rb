@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users, path: "auth"
   resources :users
   resources :posts do
     resources :comments
