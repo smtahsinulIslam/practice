@@ -6,20 +6,25 @@
 
   <div class="posts">
   <% @posts.each do |post| %>  
+  <hr>
     <h2><%= post.title %></h2>
     <p><%= post.description %></p>
     <p><%= post.comments.count %> comments</p>
     <div class="comment-actions">
       <%= link_to "View Post", post, class: "btn-blue" %>
-      <%= link_to "Edit Post", edit_post_path(post), class: "btn-green" %>
-      <%= button_to "Delete", post, method: :delete, 
-      data: { turbo_confirm: "Are you sure?" }, 
-      class: "btn-danger" %>  
+      <% if current_user == post.user %>
+        <%= link_to "Edit Post", edit_post_path(post), class: "btn-green" %>
+        <%= button_to "Delete", post, method: :delete, 
+        data: { turbo_confirm: "Are you sure?" }, 
+        class: "btn-danger" %>  
+      <% end %>
     </div>
     <hr>
     
   <% end %>  
   </div>
-  <%= link_to "New Post", new_post_path, class: "btn-blue", style: "margin-left: 10px;" %>
+  <% if user_signed_in? %>
+    <%= link_to "New Post", new_post_path, class: "btn-blue", style: "margin-left: 10px;" %>
+  <% end %>
   <br><br>
 </div>

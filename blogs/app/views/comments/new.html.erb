@@ -20,8 +20,10 @@
         <%= form.text_area :statement %>
       </div>
       <div>
-        <%= form.label :user_id, "User" %><br>
-        <%= form.collection_select :user_id, User.all, :id, :name %>
+        <%= form.number_field :user_id, 
+        id: :blog_user_id, 
+        value: current_user.id, 
+        type: :hidden %>
       </div>
 <br>
       <div>

@@ -28,8 +28,10 @@
 <br>
 
   <div>
-    <%= form.label :user_id, "User  :" %>
-    <%= form.collection_select :user_id, User.all, :id, :name %>
+    <%= form.number_field :user_id, 
+    id: :blog_user_id, 
+    value: current_user.id, 
+    type: :hidden %>
   </div>
 <br>
   <%= form.submit "Update Post" , class: "btn-green" %>
