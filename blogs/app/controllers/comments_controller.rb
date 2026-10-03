@@ -1,5 +1,8 @@
 class CommentsController < ApplicationController
   before_action :set_post
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+
+
   def index
     @comments = Comment.all
   end
