@@ -18,14 +18,14 @@
 <br>
    <div>
     <%= form.label :description %><br>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: "textarea-white" %>
   </div>
 <br>
 
   <div>
     <%= form.number_field :user_id, 
     id: :blog_user_id, 
-    value: current_user.id, 
+    value: current_user.id,
     type: :hidden %>
   </div>
 <br>

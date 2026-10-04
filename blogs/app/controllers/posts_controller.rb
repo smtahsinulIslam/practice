@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
 
 
   def index
@@ -8,6 +8,10 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+
+    if params[:edit_comment_id]
+      @editing_comment = @post.comments.find(params[:edit_comment_id])
+    end
   end
 
   def new

@@ -18,19 +18,53 @@
         </div>
       <% end %>
     <% end %>
+    <br>
+    <hr>  
+    <div>
+      <% if user_signed_in? %>
+        <div class="comment-form">
+          <h2>Add a Comment</h2>
+          
+          <%= form_with model: [@post, Comment.new], local: true do |form| %>
+            <% if form.object.errors.any? %>
+              <div style="color: red;">
+                <h2><%= pluralize(form.object.errors.count, "error ")%> Found!</h2>
+              </div>
+            <% end %>
+              <div>
+                <%= form.label :statement, "Your Comment" %>
+                <br>
+                <%= form.text_area :statement, class: "textarea" %>
+                <% if @statement == nil %>
+                  <p style="color: red;"><%= "*Write in the statement field to add a comment*" %></p>
+                <% end %>
+              </div>
+              
+              <div>
+                <%= form.submit "Create Comment", class: "btn-green" %>
+              </div>
+          <% end %>
+          </div>
+      <% else %>
+        <h3>
+          Please<%= link_to " Log in ", new_user_session_path %>to add a comment.
+        </h3>
+      <% end %>
+
+    </div>
   </div>
   <hr>
   <% if user_signed_in? %>
-  <div class="actions">
-    <%= link_to "Add Comment", new_post_comment_path(@post), class: "btn-blue" %> 
+  <div class="show-actions">
+    <br>
+    <div>
     <% if current_user == @post.user %>
       <%= link_to "Edit Post", edit_post_path(@post), class: "btn-green" %> 
       <%= link_to "Delete Post", @post, class: "btn-danger", 
       data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
     <% end %>
+    </div>
   </div>
-  <% else %>
-    <h3 style="margin-left: 10px;">Please <%= link_to "log in", new_user_session_path %> to add a comment.</h3>
   <% end %>
   <br><br>
   <%= link_to "Back to Posts", posts_path, class: "btn-blue", style: "margin-left: 10px;" %>

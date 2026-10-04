@@ -18,14 +18,9 @@
 
       <div>
         <%= form.label :statement %><br>
-        <%= form.text_area :statement %>
+        <%= form.text_area :statement, class: "textarea-white" %>
       </div>
-      <div>
-        <%= form.number_field :user_id, 
-        id: :blog_user_id, 
-        value: current_user.id, 
-        type: :hidden %>
-      </div>
+   
 <br>
       <div>
         <%= form.submit "Update Comment", class: "btn-green" %>

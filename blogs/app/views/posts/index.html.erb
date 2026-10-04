@@ -10,6 +10,16 @@
     <h2><%= post.title %></h2>
     <p><%= post.description %></p>
     <p><%= post.comments.count %> comments</p>
+    <div>
+      <% if post.comments.any? %>
+        
+          <% post.comments.each do |comment| %>
+            <p><%= comment.statement %></p>
+          <% end %>
+        
+      
+      <% end %>
+    </div>
     <div class="comment-actions">
       <%= link_to "View Post", post, class: "btn-blue" %>
       <% if current_user == post.user %>

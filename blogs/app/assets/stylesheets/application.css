@@ -139,3 +139,33 @@ li:hover {
     margin-left: 10px;
 }
 
+.show-actions {
+    gap: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.textarea {
+    min-width: 98.5%;
+    max-width: 98.5%;
+    min-height: fit-content;
+    max-height: 100px;
+    padding: 2px;
+    margin-bottom: 0;
+    border-radius: 3px;
+    border: 1px solid rgb(70, 100, 120);
+    background-color: rgb(100, 140, 150);
+
+}
+
+.textarea-white{
+    min-width: 300px;
+    max-width: 300px;
+    min-height: fit-content;
+    max-height: 100px;
+    padding: 2px;
+    margin-bottom: 0;
+    border-radius: 3px;
+    border: 1px solid rgb(100,100, 100);
+    background-color: rgb(255, 255, 255);
+}
