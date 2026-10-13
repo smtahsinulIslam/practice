@@ -2,16 +2,14 @@
   <div class="post">
     <h1><%= @post.title %></h1>
     <p><%= @post.description %></p>
-    <p>Author: <%= link_to @post.user.name, @post.user %></p>
-    <p><strong>Created at:</strong> <%= @post.created_at.strftime("%B %d, %Y") %></p>
+    <p>Author: <%= link_to @post.user.name, @post.user %> at <%= @post.created_at.strftime("%B %d, %Y") %></p>
   </div>
   <div class="comment">
     <h2>Comments</h2>
     <% @post.comments.order(created_at: :desc).each do |comment| %>
     <hr>
       <p><%= comment.statement %></p>
-      <p>commented on: <%= comment.created_at.strftime("%B %d, %Y") %></p>
-      <p>Commented by: <%= link_to comment.user.name, comment.user %></p>
+      <p>Commented by: <%= link_to comment.user.name, comment.user %> at  <%= comment.created_at.strftime("%B %d, %Y") %></p>
       <% if current_user == comment.user %>
         <div class="comment-actions">
           <%= link_to "Edit Comment", edit_post_comment_path(@post, comment), class: "btn-green" %> 
@@ -20,32 +18,23 @@
         </div>
       <% end %>
     <% end %>
-    <br>
     <hr>  
     <div id="post-comments">
       <% if user_signed_in? %>
         <div class="comment-form">
           <h2>Add a Comment</h2>
           
-          <%= form_with(model: [@post, Comment.new], data: { turbo: false }, local: true) do |form| %>
-            <% if form.object.errors.any? %>
-              <div style="color: red;">
-                <h2><%= pluralize(form.object.errors.count, "error ")%> Found!</h2>
-              </div>
-            <% end %>
-              <div>
-                <%= form.label :statement, "Your Comment" %>
-                <br>
-                <%= form.text_area :statement, class: "textarea" %>
-                <% if @statement == nil %>
-                  <p style="color: red;"><%= "*Write in the statement field to add a comment*" %></p>
-                <% end %>
-              </div>
-              
-              <div>
-                <%= form.submit "Create Comment", class: "btn-green" %>
-              </div>
-          <% end %>
+          <%= form_for([@post, Comment.new]) do |f|%>
+            <div>
+              <%= f.hidden_field :post_id, value: @post.id %>
+              <%= f.text_area :statement, placeholder: "Write your comment here...", class: "textarea" %>
+              <p style="color: red;"><%= "*Write in the statement field to add a comment!*" %></p>
+            </div>
+            <div>
+              <%= f.hidden_field :user_id, value: current_user.id %>
+            </div>
+              <%= f.submit "Create Comment", class: "btn-green" %>
+          <%end%>
           </div>
       <% else %>
         <h3>

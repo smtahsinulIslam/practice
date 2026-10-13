@@ -5,52 +5,46 @@
   </div>
 
   <div class="posts">
-  <% @posts.order(created_at: :desc).each do |post| %>  
-  <hr>
-    <h2><%= post.title %></h2>
-    <p><%= post.description %></p>
-    <p><strong>created at:</strong> <%= post.created_at.strftime("%B %d, %Y") %></p>
-    <p><%= post.comments.count %> comments</p>
-    <div>
-      <% if post.comments.any? %>
-        
-          <% post.comments.order(created_at: :desc).each do |comment| %>
-            <p><strong><%= comment.user.name %>:</strong> <%= comment.statement %></p>
-          <% end %>
-               
-      <% end %>
-      <div id="post-comments">
-        <% if user_signed_in? %>
-        <%= form_with(model: [post, Comment.new], data: { turbo: false }, local: true) do |form| %>
+    <% @posts.order(created_at: :desc).each do |post| %>  
+      <h2><%= post.title %></h2>
+      <p><%= post.description %></p>
+      <p><strong>created at:</strong> <%= post.created_at.strftime("%B %d, %Y") %></p>
+      <p><%= post.comments.count %> comments</p>
+      <div>
+        <% if post.comments.any? %>
           
-          <div>
-            <%= form.label :statement, "Your Comment" %>
-            <br>
-            <%= form.text_area :statement, class: "textarea-white" %>
-            <% if @statement == nil %>
-              <p style="color: red;"><%= "*Empty comment cannot be submitted*" %></p>
+            <% post.comments.order(created_at: :desc).each do |comment| %>
+              <p><strong><%= comment.user.name %>:</strong> <%= comment.statement %></p>
             <% end %>
-          </div>
                 
-          <div>
-            <%= form.submit "Create Comment", class: "btn-green" %>
-          </div>
-          <%end%>
+        <% end %>
+        <div id="post-comments">
+          <% if user_signed_in? %>
+          <%= form_for([post, Comment.new]) do |f|%>
+              <div>
+                <%= f.text_area :statement, placeholder: "Write your comment here...", class: "textarea-white" %>
+                <p style="color: red;"><%= "*Empty comments are not allowed!*" %></p>
+              </div>
+              <div>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+              </div>
+                <%= f.submit "Create Comment", class: "btn-green" %>
+            <%end%>
+          <% end %>
+        </div>
+      </div>
+      <div class="comment-actions">
+        <%= link_to "View Post", post, class: "btn-blue" %>
+        <% if current_user == post.user %>
+          <%= link_to "Edit Post", edit_post_path(post), class: "btn-green" %>
+          <%= button_to "Delete", post, method: :delete, 
+          data: { turbo_confirm: "Are you sure?" }, 
+          class: "btn-danger" %>  
         <% end %>
       </div>
-    </div>
-    <div class="comment-actions">
-      <%= link_to "View Post", post, class: "btn-blue" %>
-      <% if current_user == post.user %>
-        <%= link_to "Edit Post", edit_post_path(post), class: "btn-green" %>
-        <%= button_to "Delete", post, method: :delete, 
-        data: { turbo_confirm: "Are you sure?" }, 
-        class: "btn-danger" %>  
-      <% end %>
-    </div>
-    <hr>
-    
-  <% end %>  
+      <hr>
+      
+    <% end %>  
   </div>
   <% if user_signed_in? %>
     <%= link_to "New Post", new_post_path, class: "btn-blue", style: "margin-left: 10px;" %>
