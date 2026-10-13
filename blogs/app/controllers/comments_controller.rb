@@ -13,17 +13,36 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = @post.comments.build
+    @comment = @post.comments.new
   end
 
   def create
-    @comment = @post.comments.build(comment_params)
+    @comment = @post.comments.new(comment_params)
     @comment.user = current_user
-
-    if @comment.save
-      redirect_to @post, notice: "Comment was successfully created."
-    else
-      redirect_to @post, alert: "Failed to create comment. Please ensure the statement is not empty."
+    respond_to do |format|
+      format.html {
+        if @comment.save
+          @comments = Comment.where(post_id: @comment.post_id).order(created_at: :desc)
+          redirect_to @post, notice: "Comment was successfully created."
+        else
+          render "posts/show", status: :unprocessable_entity
+        end
+      }
+      format.js {
+        if @comment.save
+          @comments = Comment.where(post_id: @comment.post_id).order(created_at: :desc)
+          render "posts/show", status: :created
+        else
+          render "posts/show", status: :unprocessable_entity
+        end
+      }
+      format.json {
+        if @comment.save
+          render json: @comment, status: :created
+        else
+          render json: @comment.errors, status: :unprocessable_entity
+        end
+      }
     end
   end
 
@@ -34,7 +53,17 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       redirect_to @post, notice: "Comment was successfully updated."
     else
-      redirect_to @post, alert: "Failed to update comment. Please ensure the statement is not empty."
+      respond_to do |format|
+        format.js {
+          render js: "alert('Failed to update comment. Please ensure the statement is not empty.');"
+        }
+        format.html {
+          render :edit, status: :unprocessable_entity
+        }
+        format.json {
+          render json: @comment.errors, status: :unprocessable_entity
+        }
+      end
     end
   end
 

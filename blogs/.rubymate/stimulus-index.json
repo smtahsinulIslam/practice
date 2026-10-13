@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "indexedAt": 1791877043345,
+  "controllers": {
+    "hello": {
+      "filePath": "/home/mostafa/Desktop/practice/practice/blogs/app/javascript/controllers/hello_controller.js",
+      "targets": [],
+      "values": [],
+      "outlets": [],
+      "actions": [],
+      "classes": [],
+      "mtime": 1790602023522.9438
+    }
+  }
+}

@@ -5,20 +5,39 @@
   </div>
 
   <div class="posts">
-  <% @posts.each do |post| %>  
+  <% @posts.order(created_at: :desc).each do |post| %>  
   <hr>
     <h2><%= post.title %></h2>
     <p><%= post.description %></p>
+    <p><strong>created at:</strong> <%= post.created_at.strftime("%B %d, %Y") %></p>
     <p><%= post.comments.count %> comments</p>
     <div>
       <% if post.comments.any? %>
         
-          <% post.comments.each do |comment| %>
-            <p><%= comment.statement %></p>
+          <% post.comments.order(created_at: :desc).each do |comment| %>
+            <p><strong><%= comment.user.name %>:</strong> <%= comment.statement %></p>
           <% end %>
-        
-      
+               
       <% end %>
+      <div id="post-comments">
+        <% if user_signed_in? %>
+        <%= form_with(model: [post, Comment.new], data: { turbo: false }, local: true) do |form| %>
+          
+          <div>
+            <%= form.label :statement, "Your Comment" %>
+            <br>
+            <%= form.text_area :statement, class: "textarea-white" %>
+            <% if @statement == nil %>
+              <p style="color: red;"><%= "*Empty comment cannot be submitted*" %></p>
+            <% end %>
+          </div>
+                
+          <div>
+            <%= form.submit "Create Comment", class: "btn-green" %>
+          </div>
+          <%end%>
+        <% end %>
+      </div>
     </div>
     <div class="comment-actions">
       <%= link_to "View Post", post, class: "btn-blue" %>

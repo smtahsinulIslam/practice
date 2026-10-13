@@ -1,0 +1,3 @@
+console.log("Comment created successfully.");
+
+document.getElementById("post-comments").innerHTML = "<%= escape_javascript(render 'comments/new', locals: { comment: @comment }) %>";
