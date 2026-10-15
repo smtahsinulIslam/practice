@@ -23,6 +23,9 @@ gem "jbuilder"
 # devise added for user authentication
 gem "devise", ">= 5.0.4"
 
+# fake data generator
+gem "faker", ">= 3.4.2"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

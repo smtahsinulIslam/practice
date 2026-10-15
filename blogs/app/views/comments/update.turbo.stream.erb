@@ -1,0 +1,16 @@
+<%= turbo_stream.replace dom_id(@comment) do %>
+  <%= turbo_frame_tag dom_id(@comment) do %>
+    <div id="comment-text-<%= @comment.id %>">
+      <p><%= @comment.statement %></p>
+      <p>Commented by: <%= link_to @comment.user.name, @comment.user %> at  <%= @comment.created_at.in_time_zone.strftime("%B %d, %Y, %I:%M %p") %></p>
+      
+      <% if current_user == @comment.user %>
+        <div class="comment-actions">
+          <%= link_to "Edit Comment", [:edit, @comment.post, @comment], class: "btn-green" %>
+          <%= link_to "Destroy", [@post, @comment], class: "btn-danger", 
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
