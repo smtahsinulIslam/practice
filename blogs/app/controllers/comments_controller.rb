@@ -28,21 +28,6 @@ class CommentsController < ApplicationController
           render "posts/show", status: :unprocessable_entity
         end
       }
-      format.js {
-        if @comment.save
-          @comments = Comment.where(post_id: @comment.post_id).order(created_at: :desc)
-          render "posts/show", status: :created
-        else
-          render "posts/show", status: :unprocessable_entity
-        end
-      }
-      format.json {
-        if @comment.save
-          render json: @comment, status: :created
-        else
-          render json: @comment.errors, status: :unprocessable_entity
-        end
-      }
     end
   end
 
@@ -50,21 +35,19 @@ class CommentsController < ApplicationController
   end
 
   def update
-    if @comment.update(comment_params)
-      redirect_to @post, notice: "Comment was successfully updated."
-    else
+    @comment = @post.comments.find(params[:id])
+    @comment.statement = comment_params[:statement]
       respond_to do |format|
-        format.js {
-          render js: "alert('Failed to update comment. Please ensure the statement is not empty.');"
-        }
-        format.html {
-          render :edit, status: :unprocessable_entity
-        }
-        format.json {
-          render json: @comment.errors, status: :unprocessable_entity
-        }
+        if @comment.update(comment_params)
+          format.html {
+            redirect_to post_path(@post), notice: "Comment was successfully updated."
+          }
+        else
+          format.html {
+            redirect_to post_path(@post), alert: "Failed to update comment. Please ensure the statement is not empty."
+          }
+        end
       end
-    end
   end
 
 

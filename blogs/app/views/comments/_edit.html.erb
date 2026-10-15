@@ -1,0 +1,11 @@
+<div>
+  <%= form_with(model: [post, comment], local: true) do |form| %>
+    <div>
+      <%= form.text_area :statement, class: "textarea", value: comment.statement %>
+      <br>
+      <%= form.submit "Update Comment", class: "btn-green" %>
+
+      <button type="button" class="btn-blue" onclick="toggleEdit(<%= comment.id %>)">Cancel</button>
+    </div>
+  <% end %>
+</div>

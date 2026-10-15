@@ -2,28 +2,39 @@
   <div class="post">
     <h1><%= @post.title %></h1>
     <p><%= @post.description %></p>
-    <p>Author: <%= link_to @post.user.name, @post.user %> at <%= @post.created_at.strftime("%B %d, %Y") %></p>
+    <p>Author: <%= link_to @post.user.name, @post.user %> at <%= @post.created_at.in_time_zone.strftime("%B %d, %Y, %I:%M %p") %></p>
   </div>
+
   <div class="comment">
     <h2>Comments</h2>
     <% @post.comments.order(created_at: :desc).each do |comment| %>
-    <hr>
-      <p><%= comment.statement %></p>
-      <p>Commented by: <%= link_to comment.user.name, comment.user %> at  <%= comment.created_at.strftime("%B %d, %Y") %></p>
+      <hr>
       <% if current_user == comment.user %>
-        <div class="comment-actions">
-          <%= link_to "Edit Comment", edit_post_comment_path(@post, comment), class: "btn-green" %> 
-          <%= link_to "Destroy", [@post, comment], class: "btn-danger", 
-          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        <div id="edit-comment-form-<%= comment.id %>" class="hidden" style="display: none;">
+          <%= render "comments/edit", post:@post, comment: comment %>
         </div>
       <% end %>
+
+      <div id="comment-text-<%= comment.id %>">
+        <p><%= comment.statement %></p>
+        <p>Commented by: <%= link_to comment.user.name, comment.user %> at  <%= comment.created_at.in_time_zone.strftime("%B %d, %Y, %I:%M %p") %></p>
+        
+        <% if current_user == comment.user %>
+          <div class="comment-actions">
+            <button type="button" class="btn-green" onclick="toggleEdit(<%= comment.id %>)">Edit Comment</button>            
+            <%= link_to "Destroy", [@post, comment], class: "btn-danger", 
+            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+          </div>
+        <% end %>
+      </div>
+      
     <% end %>
+
     <hr>  
     <div id="post-comments">
       <% if user_signed_in? %>
         <div class="comment-form">
-          <h2>Add a Comment</h2>
-          
+          <h2>Add a Comment</h2>     
           <%= form_for([@post, Comment.new]) do |f|%>
             <div>
               <%= f.hidden_field :post_id, value: @post.id %>
@@ -41,24 +52,40 @@
           Please<%= link_to " Log in ", new_user_session_path %>to add a comment.
         </h3>
       <% end %>
+    </div>
+  </div>
 
-    </div>
-  </div>
   <hr>
+
   <% if user_signed_in? %>
-  <div class="show-actions">
-    <br>
-    <div>
-    <% if current_user == @post.user %>
-      <%= link_to "Edit Post", edit_post_path(@post), class: "btn-green" %> 
-      <%= link_to "Delete Post", @post, class: "btn-danger", 
-      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-    <% end %>
+    <div class="show-actions">
+      <br>
+      <div>
+      <% if current_user == @post.user %>
+        <%= link_to "Edit Post", edit_post_path(@post), class: "btn-green" %> 
+        <%= link_to "Delete Post", @post, class: "btn-danger", 
+        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      <% end %>
+      </div>
     </div>
-  </div>
   <% end %>
   <br><br>
   <%= link_to "Back to Posts", posts_path, class: "btn-blue", style: "margin-left: 10px;" %>
   <br><br>
   
 </div>
+
+<script>
+  function toggleEdit(id) {
+    const viewDiv = document.getElementById('comment-text-' + id);
+    const editDiv = document.getElementById('edit-comment-form-' + id);
+
+    if (viewDiv.style.display === 'none') {
+      viewDiv.style.display = 'block';
+      editDiv.style.display = 'none';
+    } else {
+      viewDiv.style.display = 'none';
+      editDiv.style.display = 'block';
+    }
+  }
+</script>

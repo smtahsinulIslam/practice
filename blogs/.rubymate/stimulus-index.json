@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "indexedAt": 1791877043345,
+  "indexedAt": 1792053689694,
   "controllers": {
     "hello": {
       "filePath": "/home/mostafa/Desktop/practice/practice/blogs/app/javascript/controllers/hello_controller.js",
@@ -10,6 +10,20 @@
       "actions": [],
       "classes": [],
       "mtime": 1790602023522.9438
+    },
+    "comments": {
+      "filePath": "/home/mostafa/Desktop/practice/practice/blogs/app/javascript/controllers/comments_controller.js",
+      "targets": [],
+      "values": [],
+      "outlets": [],
+      "actions": [
+        {
+          "name": "toggleEditForm",
+          "line": 6
+        }
+      ],
+      "classes": [],
+      "mtime": 1792053689296.0051
     }
   }
 }
